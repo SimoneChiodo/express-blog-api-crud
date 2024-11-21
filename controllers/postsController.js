@@ -7,18 +7,42 @@ const posts = require("../data/posts");
 // METODI CRUD
 // Metodo: Index (Visualizzare tutti gli elementi)
 function index(req, res) {
-    res.type("json").send(posts);
+    const tag = req.query.tag;
+    let output;
+
+    //Se non ho passato parametri
+    if (!tag) res.type("json").send(posts);
+
+    // Se ho passato tag come parametri
+    // Se ho solo 1 tag
+    if (!Array.isArray(tag)) {
+        output = posts.filter((post) =>
+            post.tag
+                .map((currentTag) => currentTag.toLowerCase())
+                .includes(tag.toLowerCase())
+        );
+    }
+    //Se ho + tag
+    else
+        output = posts.filter((post) =>
+            tag.every((currentTag) =>
+                post.tag
+                    .map((post) => post.toLowerCase())
+                    .includes(currentTag.toLowerCase())
+            )
+        );
+
+    res.type("json").send(output);
 }
 
 // Metodo: Show (Visualizzare un elemento)
 function show(req, res) {
     const id = parseInt(req.params.id);
-    console.log(posts[id - 1]);
 
     // Controllo l'ID
     if (id < 1 || id > posts.length || isNaN(id)) {
-        res.status(400).json({
-            error: "Invalid ID",
+        res.status(404).json({
+            error: "This post doesn't exist",
         });
 
         return;
