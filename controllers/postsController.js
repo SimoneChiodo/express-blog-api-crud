@@ -7,10 +7,7 @@ const posts = require("../data/posts");
 // METODI CRUD
 // Metodo: Index (Visualizzare tutti gli elementi)
 function index(req, res) {
-    res.type("json").send({
-        msg: "Visualizzazione dei post",
-        posts,
-    });
+    res.type("json").send(posts);
 }
 
 // Metodo: Show (Visualizzare un elemento)
@@ -53,7 +50,18 @@ function modify(req, res) {
 // Metodo: Destroy (Eliminare un elemento)
 function destroy(req, res) {
     const { id } = req.params;
-    res.type("json").send(`Eliminazione del post ${id}`);
+
+    // Trovo l'indice dell'id da eliminare
+    const indexToDelete = posts.find((post, index) => {
+        if (index === id - 1) return index;
+    });
+
+    // Elimino il post
+    posts.splice(indexToDelete, 1);
+
+    console.log(posts);
+
+    res.status(204).send();
 }
 
 //Esporto i metodi
