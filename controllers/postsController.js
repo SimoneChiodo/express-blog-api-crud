@@ -2,19 +2,19 @@ const express = require("express");
 const router = express.Router();
 
 // Importo i post
-const posts = require("../db/posts");
+const posts = require("../data/posts");
 
 // METODI CRUD
 // Metodo: Index (Visualizzare tutti gli elementi)
-router.get("/", (req, res) => {
+function index(req, res) {
     res.type("json").send({
         msg: "Visualizzazione dei post",
         posts,
     });
-});
+}
 
 // Metodo: Show (Visualizzare un elemento)
-router.get("/:id", (req, res) => {
+function show(req, res) {
     const id = parseInt(req.params.id);
     console.log(posts[id - 1]);
 
@@ -31,30 +31,30 @@ router.get("/:id", (req, res) => {
         msg: "Visualizzazione del post",
         post: posts[id - 1],
     });
-});
+}
 
 // Metodo: Store (Creare un nuovo elemento)
-router.post("/", (req, res) => {
+function store(req, res) {
     res.type("json").send(`Creazione di un nuovo post`);
-});
+}
 
 // Metodo: Update (Modificare interamente un elemento)
-router.put("/:id", (req, res) => {
+function update(req, res) {
     const { id } = req.params;
     res.type("json").send(`Modifica integrale del post ${id}`);
-});
+}
 
 // Metodo: Modify (Modificare parzialmente un elemento)
-router.patch("/:id", (req, res) => {
+function modify(req, res) {
     const { id } = req.params;
     res.type("json").send(`Modifica parziale del post ${id}`);
-});
+}
 
 // Metodo: Destroy (Eliminare un elemento)
-router.delete("/:id", (req, res) => {
+function destroy(req, res) {
     const { id } = req.params;
     res.type("json").send(`Eliminazione del post ${id}`);
-});
+}
 
 //Esporto i metodi
-module.exports = router;
+module.exports = { index, show, store, update, modify, destroy };

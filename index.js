@@ -6,8 +6,8 @@ const port = 3000;
 app.use(express.static("public"));
 
 // Importo i router
-const postsRouter = require("./router/posts");
-const pagesRouter = require("./router/pages");
+const postsRouter = require("./routers/posts");
+const pagesRouter = require("./routers/pages");
 
 // Imposto l'uso delle rotte contenute nei router
 app.use("/", pagesRouter);

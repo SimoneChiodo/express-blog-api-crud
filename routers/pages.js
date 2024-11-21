@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // Importo i post
-const posts = require("../db/posts");
+const posts = require("../data/posts");
 
 // Pagina: Home
 router.get("/", (req, res) => {
