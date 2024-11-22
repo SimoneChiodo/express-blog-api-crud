@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+// Uso il Json-parser per le Body-request
+app.use(express.json());
+
 // Abilito assets statici
 app.use(express.static("public"));
 
