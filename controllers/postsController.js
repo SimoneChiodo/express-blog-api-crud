@@ -11,7 +11,10 @@ function index(req, res) {
     let output;
 
     //Se non ho passato parametri
-    if (!tag) res.type("json").send(posts);
+    if (!tag) {
+        res.type("json").send(posts);
+        return;
+    }
 
     // Se ho passato tag come parametri
     // Se ho solo 1 tag
@@ -38,43 +41,78 @@ function index(req, res) {
 // Metodo: Show (Visualizzare un elemento)
 function show(req, res) {
     const id = parseInt(req.params.id);
-    if (checkID(res, posts, id)) return;
+    if (checkID(res, posts, id) === false) return;
 
     res.json({
-        msg: "Visualizzazione del post",
         post: posts.find((post) => post.id === id),
     });
 }
 
 // Metodo: Store (Creare un nuovo elemento)
 function store(req, res) {
-    res.type("json").send(`Creazione di un nuovo post`);
-
     // Prelevo i dati
     let { titolo, contenuto, immagine, tag } = req.body;
 
+    if (!titolo || !contenuto || !immagine || !tag) {
+        res.status(400).json({
+            error: "Parameters not OK",
+        });
+
+        return;
+    }
+
+    //Trovo l'id da assegnare
+    let id = 0;
+    posts.map((post) => {
+        if (post.id > id) id = post.id;
+    });
+
     const newPost = {
+        id: id + 1,
         titolo,
         contenuto,
         immagine,
         tag,
     };
 
-    posts.push(newpost);
+    posts.push(newPost);
+
+    res.type("json").send(posts);
 }
 
 // Metodo: Update (Modificare interamente un elemento)
 function update(req, res) {
     const id = parseInt(req.params.id);
-    if (checkID(res, posts, id)) return;
+    if (checkID(res, posts, id) === false) return;
 
-    res.type("json").send(`Modifica integrale del post ${id}`);
+    // Prelevo i dati
+    let { titolo, contenuto, immagine, tag } = req.body;
+
+    // Controllo se tutti i dati sono stati passati correttamente
+    if (!titolo || !contenuto || !immagine || !tag) {
+        res.status(400).json({
+            error: "Parameters are not correct",
+        });
+
+        return;
+    }
+
+    // Prelevo il post da modificare
+    let post = posts.find((post) => post.id === id);
+
+    // Modifico il post
+    post.titolo = titolo;
+    post.contenuto = contenuto;
+    post.immagine = immagine;
+    post.tag = tag;
+
+    res.type("json").send(posts);
 }
 
 // Metodo: Modify (Modificare parzialmente un elemento)
 function modify(req, res) {
     const id = parseInt(req.params.id);
-    if (checkID(res, posts, id)) return;
+    if (checkID(res, posts, id) === false) return;
 
     res.type("json").send(`Modifica parziale del post ${id}`);
 }
@@ -82,32 +120,74 @@ function modify(req, res) {
 // Metodo: Destroy (Eliminare un elemento)
 function destroy(req, res) {
     const id = parseInt(req.params.id);
-    if (checkID(res, posts, id)) return;
+    if (checkID(res, posts, id) === false) return;
 
     // Trovo l'indice dell'id da eliminare
-    const indexToDelete = posts.find((post, index) => {
-        if (index === id - 1) return index;
+    let indexToDelete = 0;
+    posts.map((post, index) => {
+        if (post.id === id) indexToDelete = index;
     });
 
     // Elimino il post
     posts.splice(indexToDelete, 1);
 
-    console.log(posts);
-
-    res.status(204).send();
+    // res.status(204).send();
+    res.type("json").send(posts);
 }
 
-//Funzione per contrallare gli ID
+//Funzione per controllare gli ID (restituisce un messaggio di errore diverso per ogni casistica)
 function checkID(res, array, id) {
-    // Controllo l'ID
-    if (id < 1 || id > array.length || isNaN(id)) {
-        res.status(404).json({
-            error: "This post doesn't exist",
+    // Se l'id non è un numero
+    if (isNaN(id)) {
+        res.status(400).json({
+            error: "The parameter ID must be a number",
         });
 
-        return true;
+        return false;
     }
 
+    // Se l'id è minore di 0
+    if (id <= 0) {
+        res.status(400).json({
+            error: "The parameter ID must be higher than 0",
+        });
+
+        return false;
+    }
+
+    // Prelevo l'ID più grande
+    let maxId = 0;
+    array.map((post) => {
+        if (post.id > maxId) maxId = post.id;
+    });
+
+    // Se l'id è maggiore del massimo
+    if (id > maxId) {
+        res.status(400).json({
+            error:
+                "The parameter ID is not assigned to any element of array (the higher ID is: " +
+                maxId +
+                ")",
+        });
+
+        return false;
+    }
+
+    // Controllo se l'elemento è contenuto nell'array
+    let endFz = false;
+    array.map((post) => {
+        if (post.id === id) {
+            //Termino il .map, ma non la funzione
+            endFz = true;
+            return;
+        }
+    });
+    if (endFz) return true;
+
+    // Casistica rimanente: ci sono buchi nell'array
+    res.status(400).json({
+        error: "This ID does not exist",
+    });
     return false;
 }
 

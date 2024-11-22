@@ -2,6 +2,7 @@
 let posts = [
     // Post 1
     {
+        id: 1,
         titolo: "Ciambellone",
         contenuto: "",
         immagine: "./images/ciambellone.jpeg",
@@ -9,6 +10,7 @@ let posts = [
     },
     // Post 2
     {
+        id: 2,
         titolo: "Cracker di barbabietola",
         contenuto: "",
         immagine: "./images/cracker_barbabietola.jpeg",
@@ -16,6 +18,7 @@ let posts = [
     },
     // Post 3
     {
+        id: 3,
         titolo: "Pane fritto dolce",
         contenuto: "",
         immagine: "./images/pane_fritto_dolce.jpeg",
@@ -23,6 +26,7 @@ let posts = [
     },
     // Post 4
     {
+        id: 4,
         titolo: "Pasta di barbabietola",
         contenuto: "",
         immagine: "./images/pasta_barbabietola.jpeg",
@@ -30,6 +34,7 @@ let posts = [
     },
     // Post 5
     {
+        id: 5,
         titolo: "Torta paesana",
         contenuto: "",
         immagine: "./images/torta_paesana.jpeg",
