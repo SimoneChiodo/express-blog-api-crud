@@ -114,7 +114,19 @@ function modify(req, res) {
     const id = parseInt(req.params.id);
     if (checkID(res, posts, id) === false) return;
 
-    res.type("json").send(`Modifica parziale del post ${id}`);
+    // Prelevo i dati
+    let { titolo, contenuto, immagine, tag } = req.body;
+
+    // Prelevo il post da modificare
+    let post = posts.find((post) => post.id === id);
+
+    // Modifico il post, solo con i valori passati
+    if (titolo) post.titolo = titolo;
+    if (contenuto) post.contenuto = contenuto;
+    if (immagine) post.immagine = immagine;
+    if (tag) post.tag = tag;
+
+    res.type("json").send(posts);
 }
 
 // Metodo: Destroy (Eliminare un elemento)
