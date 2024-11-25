@@ -2,10 +2,11 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-// Uso il Json-parser per le Body-request
-app.use(express.json());
+// Middlewares
+const errorsHandler = require("./middlewares/errorsHandler");
+const notFound = require("./middlewares/notFound");
 
-// Abilito assets statici
+app.use(express.json());
 app.use(express.static("public"));
 
 // Importo i router
@@ -15,6 +16,10 @@ const pagesRouter = require("./routers/pages");
 // Imposto l'uso delle rotte contenute nei router
 app.use("/", pagesRouter);
 app.use("/posts", postsRouter);
+
+// Error Handler
+app.use(errorsHandler);
+app.use(notFound);
 
 // Avvio
 app.listen(port, () => {

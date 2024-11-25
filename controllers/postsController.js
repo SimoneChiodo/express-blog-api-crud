@@ -10,6 +10,15 @@ function index(req, res) {
     const tag = req.query.tag;
     let output;
 
+    // =====================
+    //      TEST-ERROR
+    // =====================
+    // pippo.getData();
+    //
+    // const err = Error("Error occurred");
+    // err.code = 404;
+    // throw err;
+
     //Se non ho passato parametri
     if (!tag) {
         res.type("json").send(posts);
