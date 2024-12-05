@@ -70,8 +70,8 @@ function store(req, res) {
         !image ||
         !description ||
         !genre ||
-        !tags ||
-        !publish
+        !Array.isArray(tags) ||
+        publish === undefined
     ) {
         res.status(400).json({
             error: "Parameters not OK",
