@@ -60,9 +60,19 @@ function show(req, res) {
 // Metodo: Store (Creare un nuovo elemento)
 function store(req, res) {
     // Prelevo i dati
-    let { titolo, contenuto, immagine, tag } = req.body;
+    let { title, author, status, image, description, genre, tags, publish } =
+        req.body;
 
-    if (!titolo || !contenuto || !immagine || !tag) {
+    if (
+        !title ||
+        !author ||
+        !status ||
+        !image ||
+        !description ||
+        !genre ||
+        !tags ||
+        !publish
+    ) {
         res.status(400).json({
             error: "Parameters not OK",
         });
@@ -78,10 +88,14 @@ function store(req, res) {
 
     const newPost = {
         id: id + 1,
-        titolo,
-        contenuto,
-        immagine,
-        tag,
+        title,
+        author,
+        status,
+        image,
+        description,
+        genre,
+        tags,
+        publish,
     };
 
     posts.push(newPost);
@@ -95,10 +109,20 @@ function update(req, res) {
     if (checkID(res, posts, id) === false) return;
 
     // Prelevo i dati
-    let { titolo, contenuto, immagine, tag } = req.body;
+    let { title, author, status, image, description, genre, tags, publish } =
+        req.body;
 
     // Controllo se tutti i dati sono stati passati correttamente
-    if (!titolo || !contenuto || !immagine || !tag) {
+    if (
+        !title ||
+        !author ||
+        !status ||
+        !image ||
+        !description ||
+        !genre ||
+        !tags ||
+        !publish
+    ) {
         res.status(400).json({
             error: "Parameters are not correct",
         });
@@ -110,10 +134,14 @@ function update(req, res) {
     let post = posts.find((post) => post.id === id);
 
     // Modifico il post
-    post.titolo = titolo;
-    post.contenuto = contenuto;
-    post.immagine = immagine;
-    post.tag = tag;
+    post.title = title;
+    post.author = author;
+    post.status = status;
+    post.image = image;
+    post.description = description;
+    post.genre = genre;
+    post.tags = tags;
+    post.publish = publish;
 
     res.type("json").send(posts);
 }
@@ -124,16 +152,21 @@ function modify(req, res) {
     if (checkID(res, posts, id) === false) return;
 
     // Prelevo i dati
-    let { titolo, contenuto, immagine, tag } = req.body;
+    let { title, author, status, image, description, genre, tags, publish } =
+        req.body;
 
     // Prelevo il post da modificare
     let post = posts.find((post) => post.id === id);
 
     // Modifico il post, solo con i valori passati
-    if (titolo) post.titolo = titolo;
-    if (contenuto) post.contenuto = contenuto;
-    if (immagine) post.immagine = immagine;
-    if (tag) post.tag = tag;
+    if (title) post.title = title;
+    if (author) post.author = author;
+    if (status) post.status = status;
+    if (image) post.image = image;
+    if (description) post.description = description;
+    if (genre) post.genre = genre;
+    if (tags) post.tags = tags;
+    if (publish) post.publish = publish;
 
     res.type("json").send(posts);
 }

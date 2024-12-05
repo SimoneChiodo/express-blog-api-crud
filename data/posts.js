@@ -1,44 +1,67 @@
+// Temporaneo percorso LOCALHOST
+const localhost = "http://localhost:3000";
+
 // Dichiarazione dei post
 let posts = [
     // Post 1
     {
         id: 1,
-        titolo: "Ciambellone",
-        contenuto: "",
-        immagine: "./images/ciambellone.jpeg",
-        tag: ["ciambella", "zucchero a velo", "dolce"],
+        title: "Ciambellone",
+        author: "Giallos Zafferanos",
+        status: "Bozza",
+        image: localhost + "/images/ciambellone.jpeg",
+        description: "Descrizione",
+        genre: "Genere 1",
+        tags: ["ciambella", "zucchero a velo", "dolce"],
+        publish: false,
     },
     // Post 2
     {
         id: 2,
-        titolo: "Cracker di barbabietola",
-        contenuto: "",
-        immagine: "./images/cracker_barbabietola.jpeg",
-        tag: ["cracker", "barbabietola"],
+        title: "Cracker di barbabietola",
+        author: "Giallos Zafferanos",
+        status: "Bozza",
+        image: localhost + "/images/cracker_barbabietola.jpeg",
+        description: "Descrizione",
+        genre: "Genere 2",
+        tags: ["cracker", "barbabietola"],
+        publish: false,
     },
     // Post 3
     {
         id: 3,
-        titolo: "Pane fritto dolce",
-        contenuto: "",
-        immagine: "./images/pane_fritto_dolce.jpeg",
-        tag: ["pane", "fritto", "dolce"],
+        title: "Pane fritto dolce",
+        author: "Giallos Zafferanos",
+        status: "Bozza",
+        image: localhost + "/images/pane_fritto_dolce.jpeg",
+        description: "Descrizione",
+        genre: "Genere 3",
+        tags: ["pane", "fritto", "dolce"],
+        publish: false,
     },
     // Post 4
     {
         id: 4,
-        titolo: "Pasta di barbabietola",
-        contenuto: "",
-        immagine: "./images/pasta_barbabietola.jpeg",
-        tag: ["pasta", "barbabietola"],
+        title: "Pasta di barbabietola",
+        author: "Giallos Zafferanos",
+        status: "Bozza",
+        image: localhost + "/images/pasta_barbabietola.jpeg",
+        description: "Descrizione",
+        genre: "Genere 1",
+        tags: ["pasta", "barbabietola"],
+        publish: false,
     },
     // Post 5
     {
         id: 5,
-        titolo: "Torta paesana",
-        contenuto: "",
-        immagine: "./images/torta_paesana.jpeg",
-        tag: ["torta", "dolce"],
+        title: "Torta paesana",
+        author: "Giallos Zafferanos",
+        status: "Bozza",
+        image: localhost + "/images/torta_paesana.jpeg",
+        description: "Descrizione",
+        genre: "Genere 2",
+        tags: ["torta", "dolce"],
+        publish: false,
     },
 ];
 
