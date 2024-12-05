@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 const port = 3000;
 
@@ -8,6 +9,7 @@ const notFound = require("./middlewares/notFound");
 
 app.use(express.json());
 app.use(express.static("public"));
+app.use(cors());
 
 // Importo i router
 const postsRouter = require("./routers/posts");
