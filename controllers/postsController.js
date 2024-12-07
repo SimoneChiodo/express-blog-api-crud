@@ -121,8 +121,8 @@ function update(req, res) {
         !image ||
         !description ||
         !genre ||
-        !tags ||
-        !publish
+        !Array.isArray(tags) ||
+        publish === undefined
     ) {
         res.status(400).json({
             error: "Parameters are not correct",
@@ -144,7 +144,8 @@ function update(req, res) {
     post.tags = tags;
     post.publish = publish;
 
-    res.type("json").send(posts);
+    // res.type("json").send(posts);
+    res.status("200").send();
 }
 
 // Metodo: Modify (Modificare parzialmente un elemento)
