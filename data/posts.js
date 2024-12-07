@@ -1,5 +1,8 @@
 // Temporaneo percorso LOCALHOST
-const localhost = "http://localhost:3000";
+require("dotenv").config();
+const URL = process.env.HOST_DOMAIN;
+const PORT = process.env.HOST_PORT;
+const localhost = URL + ":" + PORT;
 
 // Dichiarazione dei post
 let posts = [

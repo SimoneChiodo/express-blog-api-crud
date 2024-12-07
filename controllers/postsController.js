@@ -100,7 +100,8 @@ function store(req, res) {
 
     posts.push(newPost);
 
-    res.type("json").send(posts);
+    // res.type("json").send(posts);
+    res.status(200).send();
 }
 
 // Metodo: Update (Modificare interamente un elemento)
@@ -185,8 +186,8 @@ function destroy(req, res) {
     // Elimino il post
     posts.splice(indexToDelete, 1);
 
-    // res.status(204).send();
-    res.type("json").send(posts);
+    res.status(204).send();
+    // res.type("json").send(posts);
 }
 
 //Funzione per controllare gli ID (restituisce un messaggio di errore diverso per ogni casistica)
